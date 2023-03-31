@@ -1,6 +1,6 @@
 Name:		texlive-flippdf
 Version:	56782
-Release:	1
+Release:	2
 Summary:	Horizontal flipping of pages with pdfLaTeX
 Group:		Publishing
 URL:		http://www.ctan.org/tex-archive/macros/latex/contrib/flippdf
