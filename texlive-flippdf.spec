@@ -1,47 +1,27 @@
-Name:		texlive-flippdf
-Version:	56782
-Release:	2
+%global tl_name flippdf
+%global tl_revision 77682
+
+Name:		texlive-%{tl_name}
+Epoch:		1
+Version:	2.0b
+Release:	%{tl_revision}.1
 Summary:	Horizontal flipping of pages with pdfLaTeX
 Group:		Publishing
 URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/flippdf
-License:	LPPL
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/flippdf.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/flippdf.doc.r%{version}.tar.xz
-Source2:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/flippdf.source.r%{version}.tar.xz
+License:	lppl1.3c
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/flippdf.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/flippdf.doc.r%{tl_revision}.tar.xz
+Source2:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/flippdf.source.r%{tl_revision}.tar.xz
 BuildArch:	noarch
+BuildSystem:	texlive
 BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+%texlive_base_requires
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-The package allows the production of a document with pages
-"mirrored". This is sometimes required by publishers who want
-camera-ready documents to be printed on transparent film (to be
-viewed from the "wrong" side). The package requires everypage,
-and only works with pdfLaTeX in PDF mode.
+The package allows the production of a document with pages "mirrored".
+This is sometimes required by publishers who want camera-ready documents
+to be printed on transparent film (to be viewed from the "wrong" side).
+The package only works with pdfLaTeX or LuaLaTeX in PDF output mode.
+Package everypage is required on LaTeX releases before Fall 2020.
 
-%post
-%{_sbindir}/texlive.post
-
-%postun
-if [ $1 -eq 0 ]; then
-	%{_sbindir}/texlive.post
-fi
-
-#-----------------------------------------------------------------------
-%files
-%{_texmfdistdir}/tex/latex/flippdf
-%doc %{_texmfdistdir}/doc/latex/flippdf
-#- source
-%doc %{_texmfdistdir}/source/latex/flippdf
-
-#-----------------------------------------------------------------------
-%prep
-%setup -c -a1 -a2
-%autopatch -p1
-
-%build
-
-%install
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -fpar tex doc source %{buildroot}%{_texmfdistdir}
